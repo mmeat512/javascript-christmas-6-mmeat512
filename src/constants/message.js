@@ -8,10 +8,13 @@ export const OUTPUT_MESSAGE = Object.freeze({});
 
 const ERROR_PREFIX = '[ERROR]';
 export const ERROR_MESSAGE = Object.freeze({
+  value: `${ERROR_PREFIX} 빈 값은 입력할 수 없습니다. 다시 입력해 주세요.`,
+  number: `${ERROR_PREFIX} 숫자만 입력할 수 있습니다. 다시 입력해 주세요.`,
   date: `${ERROR_PREFIX} 유효하지 않은 날짜입니다. 다시 입력해 주세요.`,
   order: `${ERROR_PREFIX} 유효하지 않은 주문입니다. 다시 입력해 주세요.`,
 });
 
 export const ERROR_TYPE = Object.freeze({
   validation: 'ValidationError',
+  type: 'TypeError',
 });
