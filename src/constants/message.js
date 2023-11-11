@@ -12,6 +12,11 @@ export const ERROR_MESSAGE = Object.freeze({
   number: `${ERROR_PREFIX} 숫자만 입력할 수 있습니다. 다시 입력해 주세요.`,
   date: `${ERROR_PREFIX} 유효하지 않은 날짜입니다. 다시 입력해 주세요.`,
   order: `${ERROR_PREFIX} 유효하지 않은 주문입니다. 다시 입력해 주세요.`,
+  includesNotMenu: `${ERROR_PREFIX} 메뉴판에 없는 메뉴가 포함되어있습니다. 다시 입력해 주세요.`,
+  includesZeroNumber: `${ERROR_PREFIX} 메뉴는 1개이상 주문 가능합니다. 다시 입력해 주세요.`,
+  isAllBeverage: `${ERROR_PREFIX} 음료만 주문은 불가능합니다. 다시 입력해 주세요.`,
+  hasDuplcateMenu: `${ERROR_PREFIX} 중복된 메뉴가 있습니다. 다시 입력해 주세요.`,
+  isOverMaxNumber: `${ERROR_PREFIX} 최대 20개까지 주문 가능합니다. 다시 입력해 주세요.`,
 });
 
 export const ERROR_TYPE = Object.freeze({
