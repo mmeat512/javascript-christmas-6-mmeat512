@@ -23,10 +23,10 @@ const BEVERAGE = Object.freeze({
 });
 
 export const MENU = Object.freeze({
-  APPETIZER,
-  MAIN,
-  DESSERT,
-  BEVERAGE,
+  appetizer: APPETIZER,
+  main: MAIN,
+  dessert: DESSERT,
+  beverage: BEVERAGE,
 });
 
 export const KOREAN_MENU = Object.freeze({

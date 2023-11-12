@@ -12,3 +12,8 @@ export const CHRISTMAS_DAY = Object.freeze({
   startDate: `${THIS_YEAR}-12-1`,
   endDate: `${THIS_YEAR}-12-31`,
 });
+
+export const DISCOUNT_TYPE = {
+  dessert: 'dessert',
+  main: 'main',
+};
