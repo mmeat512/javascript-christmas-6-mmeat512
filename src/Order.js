@@ -1,6 +1,7 @@
 import { SEPARATOR_COMMA, SEPARATOR_DASH } from './constants/common';
 import { KOREAN_MENU, MAX_ORDER_NUMBER, MENU, MIN_ORDER_NUMBER, NO_PRICE } from './constants/menu';
 import { ERROR_MESSAGE } from './constants/message';
+import Menu from './domain/Menu';
 import ValiditionError from './error/ValidationError';
 
 class Order {
@@ -19,11 +20,12 @@ class Order {
 
   generateOrdersIncludesPrice(order) {
     const orderMenus = this.#generateOrderMenus(order);
+    const menuInstance = new Menu();
 
     return orderMenus.map(({ menu: koMenu, number }) => {
       const menus = Object.keys(KOREAN_MENU);
       const menu = menus.find((enMenu) => KOREAN_MENU[enMenu] === koMenu);
-      const price = this.getMenuPrice(menu);
+      const price = menuInstance.getMenuPrice(menu);
 
       return {
         name: menu,
@@ -31,25 +33,6 @@ class Order {
         price,
       };
     });
-  }
-
-  getMenuType(menu) {
-    const menuTypes = Object.keys(MENU);
-
-    return menuTypes.find((menuType) => {
-      const menus = Object.keys(MENU[menuType]);
-      return menus.includes(menu);
-    });
-  }
-
-  getMenuPrice(menu) {
-    const menuType = this.getMenuType(menu);
-
-    if (MENU[menuType]) {
-      return MENU[menuType][menu];
-    }
-
-    return NO_PRICE;
   }
 
   #generateMenuNumbers(order) {
