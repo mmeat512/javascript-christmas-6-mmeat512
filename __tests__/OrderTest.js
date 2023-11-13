@@ -1,35 +1,91 @@
 import Order from '../src/Order';
 
 describe('주문 테스트', () => {
-  test('주문 형식이 다르면 에러를 발생합니다.', () => {
+  test.each([
+    ['해물파스타3개,레드와인2개,아이스크림1개'],
+    ['크림파스타-1'],
+    ['해물파스타-0,레드와인-1'],
+    ['제로콜라-1,레드와인-2'],
+    ['해물파스타-2,레드와인-1,해물파스타-4'],
+    ['해물파스타-2,레드와인-1,해물파스타-4'],
+  ])('[%s] 주문 형식과 다르면 에러를 발생합니다.', (order) => {
     expect(() => {
-      new Order('해물파스타3개,레드와인2개,아이스크림1개');
+      new Order(order);
     }).toThrow();
   });
 
-  test('메뉴판에 존재하는 메뉴만 주문이 가능합니다.', () => {
-    expect(() => {
-      new Order('크림파스타-1');
-    }).toThrow();
+  test('메뉴의 가격을 가져온다.', () => {
+    // given
+    const ORDER = '해물파스타-1,레드와인-1,아이스크림-1,초코케이크-1';
+    const MENU = 'seafoodPasta';
+    const PRICE = 35000;
+
+    // when
+    const order = new Order(ORDER);
+    const result = order.getMenuPrice(MENU);
+
+    // then
+    expect(result).toBe(PRICE);
   });
-  test('메뉴의 개수는 1개 이상만 주문이 가능합니다.', () => {
-    expect(() => {
-      new Order('해물파스타-0,레드와인-1');
-    }).toThrow();
+
+  test('메뉴의 타입을 가져온다.', () => {
+    // given
+    const ORDER = '해물파스타-1,레드와인-1,아이스크림-1,초코케이크-1';
+    const MENU = 'seafoodPasta';
+    const TYPE = 'main';
+
+    // when
+    const order = new Order(ORDER);
+    const result = order.getMenuType(MENU);
+
+    // then
+    expect(result).toBe(TYPE);
   });
-  test('음료로 이루어진 주문은 불가능합니다.', () => {
-    expect(() => {
-      new Order('제로콜라-1,레드와인-2');
-    }).toThrow();
+
+  test('가격을 포함한 주문리스트를 생성한다.', () => {
+    // given
+    const ORDER = '해산물파스타-1,레드와인-1,아이스크림-2,초코케이크-1';
+    const ORDERS = [
+      {
+        name: 'seafoodPasta',
+        number: 1,
+        price: 35000,
+      },
+      {
+        name: 'redWine',
+        number: 1,
+        price: 60000,
+      },
+      {
+        name: 'iceCream',
+        number: 2,
+        price: 5000,
+      },
+      {
+        name: 'chocolateCake',
+        number: 1,
+        price: 15000,
+      },
+    ];
+
+    // when
+    const order = new Order(ORDER);
+    const result = order.generateOrdersIncludesPrice(ORDER);
+
+    // then
+    expect(result).toStrictEqual(ORDERS);
   });
-  test('중복메뉴가 있으면 주문이 불가능합니다.', () => {
-    expect(() => {
-      new Order('해물파스타-2,레드와인-1,해물파스타-4');
-    }).toThrow();
-  });
-  test('최대 20개까지 주문이 가능합니다.', () => {
-    expect(() => {
-      new Order('해물파스타-13,레드와인-2,크리스마스파스타-8');
-    }).toThrow();
+
+  test('주문의 총금액을 가져온다.', () => {
+    // given
+    const ORDER = '해산물파스타-1,레드와인-1,아이스크림-2,초코케이크-1';
+    const TOTAL_PRICE = 120000;
+
+    // when
+    const order = new Order(ORDER);
+    const result = order.getTotalPrice(ORDER);
+
+    // then
+    expect(result).toBe(TOTAL_PRICE);
   });
 });
