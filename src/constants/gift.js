@@ -4,3 +4,9 @@ export const BASELINE_BENEFIT_AMOUT = {
   tree: 10000,
   star: 5000,
 };
+
+export const KOREAN_BADGE = {
+  santa: '산타',
+  tree: '트리',
+  start: '별',
+};
