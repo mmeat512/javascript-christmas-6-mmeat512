@@ -12,7 +12,7 @@ class Benefit {
     const ddayAmount = discount.getChristmasDDayAmount();
     const specialAmount = discount.getSpecialDayAmout(SPECIAL_DAY);
 
-    if (NO_DISCOUNT !== everydayAmount.amount) discountDetail.push(everydayAmount);
+    if (NO_DISCOUNT !== everydayAmount) discountDetail.push(everydayAmount);
     if (NO_DISCOUNT !== ddayAmount)
       discountDetail.push(this.#generateBenefitDetail(BENEFIT_NAME.christmasDDay, ddayAmount));
     if (NO_DISCOUNT !== specialAmount)
@@ -33,6 +33,13 @@ class Benefit {
 
   getTotalBenefitAmount(benefitDetails) {
     return benefitDetails.reduce((acc, benefitDetails) => acc + benefitDetails.amount, NO_DISCOUNT);
+  }
+
+  getTotalDiscountAmount(discountDetails) {
+    return discountDetails.reduce(
+      (acc, discountDetail) => acc + discountDetail.amount,
+      NO_DISCOUNT,
+    );
   }
 
   getBadgeDetail(totalBenefitAmount) {
