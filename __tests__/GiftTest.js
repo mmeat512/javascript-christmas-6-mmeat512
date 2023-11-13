@@ -14,9 +14,9 @@ describe('증정 테스트', () => {
   });
 
   test.each([
-    [20000, 'santa'],
-    [14000, 'tree'],
-    [9000, 'star'],
+    [20000, '산타'],
+    [14000, '트리'],
+    [9000, '별'],
     [2000, undefined],
   ])('총혜택 금액에 따라 배지를 지급받는다.', (totalBenefitAmount, expected) => {
     // when

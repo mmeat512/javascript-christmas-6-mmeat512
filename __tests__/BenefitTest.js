@@ -70,9 +70,9 @@ describe('혜택 테스트', () => {
   });
 
   test.each([
-    [31246, 'santa'],
-    [15000, 'tree'],
-    [5000, 'star'],
+    [31246, '산타'],
+    [15000, '트리'],
+    [5000, '별'],
   ])('[%d, %s] 총혜택 금액에 따라 배지 상세를 얻는다.', (totalBenefitAmount, badge) => {
     // given
     const SANTA_BADGE = {
