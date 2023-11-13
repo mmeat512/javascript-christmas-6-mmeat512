@@ -7,8 +7,8 @@ const validator = {
     if (!input) throw new ValidationError(ERROR_MESSAGE.value);
   },
 
-  validateNumber(input) {
-    if (Number.isNaN(input)) throw new TypeError(ERROR_MESSAGE.number);
+  validateDate(input) {
+    if (Number.isNaN(input)) throw new ValidationError(ERROR_MESSAGE.date);
   },
 };
 
@@ -17,7 +17,7 @@ const InputView = {
     const input = await Console.readLineAsync(INPUT_MESSAGE.readDate);
 
     validator.validate(input);
-    validator.validateNumber(Number(input));
+    validator.validateDate(Number(input));
 
     return input;
   },
