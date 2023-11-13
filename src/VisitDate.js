@@ -10,6 +10,10 @@ class VisitDate {
   }
 
   #validate(visitDate) {
+    if (isNaN(visitDate)) {
+      throw new ValidationError();
+    }
+
     if (START_DAY > visitDate || visitDate > END_DAY) {
       throw new ValidationError();
     }
