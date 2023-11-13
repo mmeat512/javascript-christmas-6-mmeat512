@@ -46,3 +46,5 @@ export const KOREAN_MENU = Object.freeze({
 
 export const MIN_ORDER_NUMBER = 1;
 export const MAX_ORDER_NUMBER = 20;
+
+export const NO_PRICE = 0;
