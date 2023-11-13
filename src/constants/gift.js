@@ -8,5 +8,5 @@ export const BASELINE_BENEFIT_AMOUT = {
 export const KOREAN_BADGE = {
   santa: '산타',
   tree: '트리',
-  start: '별',
+  star: '별',
 };
