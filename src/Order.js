@@ -12,14 +12,18 @@ class Order {
     this.#order = order;
   }
 
-  getTotalPrice(order) {
-    const orders = this.generateOrdersIncludesPrice(order);
+  isOverMinOrderAmount(minOrderAmount) {
+    return this.getTotalPrice() >= minOrderAmount;
+  }
+
+  getTotalPrice() {
+    const orders = this.generateOrdersIncludesPrice(this.#order);
 
     return orders.reduce((acc, order) => acc + order.number * order.price, NO_PRICE);
   }
 
-  generateOrdersIncludesPrice(order) {
-    const orderMenus = this.#generateOrderMenus(order);
+  generateOrdersIncludesPrice() {
+    const orderMenus = this.#generateOrderMenus(this.#order);
     const menuInstance = new Menu();
 
     return orderMenus.map(({ menu: koMenu, number }) => {
