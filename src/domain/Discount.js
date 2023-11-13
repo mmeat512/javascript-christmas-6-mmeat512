@@ -1,3 +1,4 @@
+import { BENEFIT_NAME } from '../constants/benefit';
 import { WEEKEND, WEEK_DAY } from '../constants/date';
 import {
   D_DAY_AMOUNT,
@@ -5,7 +6,9 @@ import {
   YEAR_AMOUNT,
   NO_DISCOUNT,
   DISCOUNT_TYPE,
+  CHRISTMAS_DAY,
 } from '../constants/discount.js';
+import Menu from './Menu';
 
 class Discount {
   #date;
@@ -16,27 +19,35 @@ class Discount {
 
   getEverydayAmount(order) {
     const day = new Date(`${2023}-${12}-${this.#date}`).getDay();
-    const everydayAmount = {};
 
     if (WEEK_DAY.includes(day)) {
-      everydayAmount.name = '평일 할인';
-      everydayAmount.amount = this.getTypeAmout(order, DISCOUNT_TYPE.dessert);
+      return {
+        name: BENEFIT_NAME.weekday,
+        amount: this.getTypeAmout(order, DISCOUNT_TYPE.dessert),
+      };
     }
 
     if (WEEKEND.includes(day)) {
-      everydayAmount.name = '주말 할인';
-      everydayAmount.amount = this.getTypeAmout(order, DISCOUNT_TYPE.main);
+      return {
+        name: BENEFIT_NAME.weekend,
+        amount: this.getTypeAmout(order, DISCOUNT_TYPE.main),
+      };
     }
 
-    return everydayAmount;
+    return NO_DISCOUNT;
   }
 
   getTypeAmout(order, type) {
-    if (order[type]) {
-      const menuNumber = order[type].reduce((acc, menu) => acc + menu.number, 0);
+    const menuInstance = new Menu();
 
-      return menuNumber * YEAR_AMOUNT;
-    }
+    const menuNumber = order.reduce((acc, menu) => {
+      const menuType = menuInstance.getMenuType(menu.name);
+      if (menuType === type) return acc + menu.number;
+
+      return acc;
+    }, 0);
+
+    if (menuNumber !== NO_DISCOUNT) return menuNumber * YEAR_AMOUNT;
 
     return NO_DISCOUNT;
   }
@@ -48,12 +59,7 @@ class Discount {
   }
 
   getChristmasDDayAmount() {
-    const christmasDateRange = {
-      startDate: 1,
-      endDate: 25,
-    };
-
-    return this.getDDayAmount(christmasDateRange);
+    return this.getDDayAmount(CHRISTMAS_DAY);
   }
 
   getDDayAmount(dateRange) {
