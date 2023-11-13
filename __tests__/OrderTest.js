@@ -42,7 +42,7 @@ describe('주문 테스트', () => {
 
     // when
     const order = new Order(ORDER);
-    const result = order.generateOrdersIncludesPrice(ORDER);
+    const result = order.generateOrdersIncludesPrice();
 
     // then
     expect(result).toStrictEqual(ORDERS);
@@ -55,7 +55,7 @@ describe('주문 테스트', () => {
 
     // when
     const order = new Order(ORDER);
-    const result = order.getTotalPrice(ORDER);
+    const result = order.getTotalPrice();
 
     // then
     expect(result).toBe(TOTAL_PRICE);
