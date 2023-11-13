@@ -4,10 +4,10 @@ describe('혜택 테스트', () => {
   test('할인 혜택 상세리스트를 얻는다.', () => {
     // given
     const DATE = 6;
-    const ORDER = {
-      main: [{ menu: '티본스테이크', number: 1 }],
-      dessert: [{ menu: '아이스크림', number: 2 }],
-    };
+    const ORDER = [
+      { name: 'tBoneSteak', number: 1 },
+      { name: 'iceCream', number: 2 },
+    ];
     const DISCOUNT_DETAILS = [
       {
         name: '평일 할인',

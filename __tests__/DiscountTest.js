@@ -6,10 +6,10 @@ describe('할인 테스트', () => {
   test('평일에는 디저트 메뉴 개수당 2,023원 할인받는다.', () => {
     // given
     const DATE = 6;
-    const ORDER = {
-      main: [{ menu: '티본스테이크', number: 1 }],
-      dessert: [{ menu: '아이스크림', number: 2 }],
-    };
+    const ORDER = [
+      { name: 'tBoneSteak', number: 1 },
+      { name: 'iceCream', number: 2 },
+    ];
     const TYPE = 'dessert';
     const DISCOUNT_AMOUNT = 2 * THIS_YEAR;
 
@@ -24,16 +24,12 @@ describe('할인 테스트', () => {
   test('주말에는 메인 메뉴 개수당 2,023원 할인받는다.', () => {
     // given
     const DATE = 8;
-    const ORDER = {
-      main: [
-        { menu: '티본스테이크', number: 1 },
-        { menu: '해산물파스타', number: 2 },
-      ],
-      dessert: [
-        { menu: '아이스크림', number: 2 },
-        { menu: '초코케이크', number: 1 },
-      ],
-    };
+    const ORDER = [
+      { name: 'tBoneSteak', number: 1 },
+      { name: 'seafoodPasta', number: 2 },
+      { name: 'iceCream', number: 2 },
+      { name: 'chocolateCake', number: 1 },
+    ];
     const TYPE = 'main';
     const DISCOUNT_AMOUNT = 3 * THIS_YEAR;
 
