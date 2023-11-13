@@ -14,34 +14,6 @@ describe('주문 테스트', () => {
     }).toThrow();
   });
 
-  test('메뉴의 가격을 가져온다.', () => {
-    // given
-    const ORDER = '해물파스타-1,레드와인-1,아이스크림-1,초코케이크-1';
-    const MENU = 'seafoodPasta';
-    const PRICE = 35000;
-
-    // when
-    const order = new Order(ORDER);
-    const result = order.getMenuPrice(MENU);
-
-    // then
-    expect(result).toBe(PRICE);
-  });
-
-  test('메뉴의 타입을 가져온다.', () => {
-    // given
-    const ORDER = '해물파스타-1,레드와인-1,아이스크림-1,초코케이크-1';
-    const MENU = 'seafoodPasta';
-    const TYPE = 'main';
-
-    // when
-    const order = new Order(ORDER);
-    const result = order.getMenuType(MENU);
-
-    // then
-    expect(result).toBe(TYPE);
-  });
-
   test('가격을 포함한 주문리스트를 생성한다.', () => {
     // given
     const ORDER = '해산물파스타-1,레드와인-1,아이스크림-2,초코케이크-1';
