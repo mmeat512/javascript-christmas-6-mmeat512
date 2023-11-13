@@ -1,5 +1,5 @@
 import { SEPARATOR_COMMA, SEPARATOR_DASH } from './constants/common';
-import { KOREAN_MENU, MAX_ORDER_NUMBER, MENU, MIN_ORDER_NUMBER } from './constants/menu';
+import { KOREAN_MENU, MAX_ORDER_NUMBER, MENU, MIN_ORDER_NUMBER, NO_PRICE } from './constants/menu';
 import { ERROR_MESSAGE } from './constants/message';
 import ValiditionError from './error/ValidationError';
 
@@ -11,17 +11,54 @@ class Order {
     this.#order = order;
   }
 
-  #validate(order) {
-    const orderRegExp = /^(([가-힣]+(-[0-9]+))(,([가-힣]+(-[0-9]+)))*)$/g;
+  getTotalPrice(order) {
+    const orders = this.generateOrdersIncludesPrice(order);
 
-    if (orderRegExp.test(order)) throw new ValiditionError(ERROR_MESSAGE.order);
-
-    const orderMenus = this.#generateOrderMenus(order.split(SEPARATOR_COMMA));
-
-    this.#validateOrderMenus(orderMenus);
+    return orders.reduce((acc, order) => acc + order.number * order.price, NO_PRICE);
   }
 
-  #generateOrderMenus(menuNumbers) {
+  generateOrdersIncludesPrice(order) {
+    const orderMenus = this.#generateOrderMenus(order);
+
+    return orderMenus.map(({ menu: koMenu, number }) => {
+      const menus = Object.keys(KOREAN_MENU);
+      const menu = menus.find((enMenu) => KOREAN_MENU[enMenu] === koMenu);
+      const price = this.getMenuPrice(menu);
+
+      return {
+        name: menu,
+        number,
+        price,
+      };
+    });
+  }
+
+  getMenuType(menu) {
+    const menuTypes = Object.keys(MENU);
+
+    return menuTypes.find((menuType) => {
+      const menus = Object.keys(MENU[menuType]);
+      return menus.includes(menu);
+    });
+  }
+
+  getMenuPrice(menu) {
+    const menuType = this.getMenuType(menu);
+
+    if (MENU[menuType]) {
+      return MENU[menuType][menu];
+    }
+
+    return NO_PRICE;
+  }
+
+  #generateMenuNumbers(order) {
+    return order.split(SEPARATOR_COMMA);
+  }
+
+  #generateOrderMenus(order) {
+    const menuNumbers = this.#generateMenuNumbers(order);
+
     return menuNumbers.map((menuNumber) => {
       const [menu, number] = menuNumber.split(SEPARATOR_DASH);
 
@@ -32,11 +69,19 @@ class Order {
     });
   }
 
+  #validate(order) {
+    const orderRegExp = /^(([가-힣]+(-[0-9]+))(,([가-힣]+(-[0-9]+)))*)$/g;
+
+    if (!orderRegExp.test(order)) throw new ValiditionError(ERROR_MESSAGE.order);
+
+    this.#validateOrderMenus(this.#generateOrderMenus(order));
+  }
+
   #validateOrderMenus(orderMenus) {
-    if (this.#isRightOrderMenu(orderMenus))
+    if (!this.#isRightOrderMenu(orderMenus))
       throw new ValiditionError(ERROR_MESSAGE.includesNotMenu);
 
-    if (this.#isRightOrderNumber(orderMenus))
+    if (!this.#isRightOrderNumber(orderMenus))
       throw new ValiditionError(ERROR_MESSAGE.includesZeroNumber);
 
     if (this.#isAllBeverageMenus(orderMenus))
@@ -51,28 +96,31 @@ class Order {
   #isRightOrderMenu(orderMenus) {
     const koreanMenus = Object.values(KOREAN_MENU);
 
-    return orderMenus.every((orderMenu) => koreanMenus.includes(orderMenu.menu));
+    return orderMenus.some((orderMenu) => koreanMenus.includes(orderMenu.menu));
   }
 
   #isRightOrderNumber(orderMenus) {
-    return orderMenus.every(
-      (orderMenu) => !isNaN(orderMenu.number) && orderMenu >= MIN_ORDER_NUMBER,
-    );
+    return orderMenus.every((orderMenu) => {
+      const { number } = orderMenu;
+
+      return !isNaN(number) && number >= MIN_ORDER_NUMBER;
+    });
   }
 
   #isAllBeverageMenus(orderMenus) {
     return orderMenus.every((orderMenu) => {
-      const { BEVERAGE } = MENU;
-      const beverages = Object.keys(BEVERAGE).map((beverage) => KOREAN_MENU[beverage]);
+      const { menu } = orderMenu;
+      const { beverage } = MENU;
+      const beverages = Object.keys(beverage).map((beverage) => KOREAN_MENU[beverage]);
 
-      return beverages.includes(orderMenu);
+      return beverages.includes(menu);
     });
   }
 
   #hasDuplicateMenus(orderMenus) {
     const menus = orderMenus.map((orderMenu) => orderMenu.menu);
     const originLength = menus.length;
-    const deDuplicateMenusLength = new Set(menus).size();
+    const deDuplicateMenusLength = new Set(menus).size;
 
     return originLength !== deDuplicateMenusLength;
   }
