@@ -9,8 +9,8 @@ export const D_DAY_AMOUNT = Object.freeze({
 
 export const SPECIAL_DAY = [3, 10, 17, 24, 25, 31];
 export const CHRISTMAS_DAY = Object.freeze({
-  startDate: `${THIS_YEAR}-12-1`,
-  endDate: `${THIS_YEAR}-12-31`,
+  startDate: 1,
+  endDate: 25,
 });
 
 export const DISCOUNT_TYPE = {
