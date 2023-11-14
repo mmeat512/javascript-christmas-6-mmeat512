@@ -26,7 +26,7 @@ class VisitDate {
   }
 
   getVisitDate() {
-    return this.#visitDate;
+    return Number(this.#visitDate);
   }
 }
 
