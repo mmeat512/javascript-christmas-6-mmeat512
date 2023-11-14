@@ -41,7 +41,7 @@ class EventPlanner {
     const benefit = new Benefit();
     const giftDetails = benefit.getGiftDetails(totalPrice);
     const discountDetails = benefit.getDiscountDetails(orders, visitDate);
-    const totalBenefitDetails = giftDetails.concat(discountDetails);
+    const totalBenefitDetails = discountDetails.concat(giftDetails);
     const totalBenefitAmount = benefit.getTotalBenefitAmount(totalBenefitDetails);
 
     OutputView.printGiftMenu(giftDetails);
