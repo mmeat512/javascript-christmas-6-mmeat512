@@ -41,13 +41,6 @@ class Benefit {
     );
   }
 
-  getBadgeDetail(totalBenefitAmount) {
-    const gift = new Gift();
-    const badge = gift.getReciveBadge(totalBenefitAmount);
-
-    return this.#generateBenefitDetail(DECEMBER_BADGE, badge);
-  }
-
   #generateBenefitDetail(name, amount) {
     if (NO_DISCOUNT !== amount) {
       return {
