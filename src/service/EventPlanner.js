@@ -1,8 +1,10 @@
-import OutputView from '../view/OutputView.js';
-import Benefit from '../domain/Benefit.js';
+import OutputView from '../view/OutputView';
+import Benefit from '../domain/Benefit';
+import Badge from '../domain/Badge';
 
 class EventPlanner {
   #visitDate;
+
   #order;
 
   constructor(visitDate, order) {
@@ -17,23 +19,19 @@ class EventPlanner {
     OutputView.printMenu(orders);
     OutputView.printTotalAmountBeforeDiscount(totalPrice);
 
-    if (
-      this.#order.isOverMinOrderAmount(minOrderAmount) &&
-      this.#visitDate.isWithinDateRange(eventRagne)
-    ) {
+    if (this.#visitDate.isWithinDateRange(eventRagne)) {
+      if (this.#order.isNotOverMinOrderAmount(minOrderAmount)) this.noEventBenefit(totalPrice);
+
       this.applyEventBenefit(orders, totalPrice);
-    } else {
-      this.noEventBenefit(totalPrice);
     }
   }
 
   noEventBenefit(totalPrice) {
-    const benefit = new Benefit();
     OutputView.printGiftMenu();
     OutputView.pritnBenefitDetails();
     OutputView.printTotalBenefitAmount();
     OutputView.printTotalAmountAfterDiscount(totalPrice);
-    OutputView.printEventBadge(benefit.getBadgeDetail(0));
+    OutputView.printEventBadge();
   }
 
   applyEventBenefit(orders, totalPrice) {
@@ -42,15 +40,14 @@ class EventPlanner {
     const giftDetails = benefit.getGiftDetails(totalPrice);
     const discountDetails = benefit.getDiscountDetails(orders, visitDate);
     const totalBenefitDetails = discountDetails.concat(giftDetails);
+    const totalDiscountAmount = benefit.getTotalDiscountAmount(discountDetails);
     const totalBenefitAmount = benefit.getTotalBenefitAmount(totalBenefitDetails);
 
     OutputView.printGiftMenu(giftDetails);
     OutputView.pritnBenefitDetails(totalBenefitDetails);
     OutputView.printTotalBenefitAmount(totalBenefitAmount);
-    OutputView.printTotalAmountAfterDiscount(
-      totalPrice - benefit.getTotalDiscountAmount(discountDetails),
-    );
-    OutputView.printEventBadge(benefit.getBadgeDetail(totalBenefitAmount));
+    OutputView.printTotalAmountAfterDiscount(totalPrice - totalDiscountAmount);
+    OutputView.printEventBadge(Badge.getBadge(totalBenefitAmount));
   }
 }
 

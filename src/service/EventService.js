@@ -1,9 +1,9 @@
-import Order from '../Order.js';
-import VisitDate from '../VisitDate.js';
-import OutputView from '../view/OutputView.js';
-import InputView from '../view/InputView.js';
-import EventPlanner from './EventPlanner.js';
-import { EVENT_RANGE, MIN_ORDER_AMOUNT } from '../constants/event.js';
+import Order from '../Order';
+import VisitDate from '../VisitDate';
+import OutputView from '../view/OutputView';
+import InputView from '../view/InputView';
+import EventPlanner from './EventPlanner';
+import { EVENT_RANGE, MIN_ORDER_AMOUNT } from '../constants/event';
 
 class EventService {
   async getValidVisitDate() {

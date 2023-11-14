@@ -1,9 +1,9 @@
-import { SPECIAL_DAY, NO_DISCOUNT, CHRISTMAS_DAY } from '../constants/discount.js';
-import { BENEFIT_NAME, DECEMBER_BADGE } from '../constants/benefit.js';
-import { MENU } from '../constants/menu.js';
-import { getDay, isWeekDay, isWeekend } from '../utils/utils.js';
-import Discount from './Discount.js';
-import Gift from './Gift.js';
+import { SPECIAL_DAY, NO_DISCOUNT, CHRISTMAS_DAY } from '../constants/discount';
+import { BENEFIT_NAME } from '../constants/benefit';
+import { MENU } from '../constants/menu';
+import { getDay, isWeekDay, isWeekend } from '../utils/utils';
+import Discount from './Discount';
+import Gift from './Gift';
 
 class Benefit {
   getDiscountDetails(order, date) {
@@ -31,7 +31,7 @@ class Benefit {
   }
 
   getTotalBenefitAmount(benefitDetails) {
-    return benefitDetails.reduce((acc, benefitDetails) => acc + benefitDetails.amount, NO_DISCOUNT);
+    return benefitDetails.reduce((acc, benefitDetail) => acc + benefitDetail.amount, NO_DISCOUNT);
   }
 
   getTotalDiscountAmount(discountDetails) {
@@ -44,8 +44,8 @@ class Benefit {
   #generateBenefitDetail(name, amount) {
     if (NO_DISCOUNT !== amount) {
       return {
-        name: name,
-        amount: amount,
+        name,
+        amount,
       };
     }
   }

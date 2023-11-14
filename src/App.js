@@ -1,4 +1,4 @@
-import EventService from './service/EventService.js';
+import EventService from './service/EventService';
 
 class App {
   async run() {

@@ -6,11 +6,11 @@ class VisitDate {
 
   constructor(visitDate) {
     this.#validate(visitDate);
-    this.#visitDate = visitDate;
+    this.#visitDate = Number(visitDate);
   }
 
   #validate(visitDate) {
-    if (isNaN(visitDate)) {
+    if (Number.isNaN(Number(visitDate))) {
       throw new ValidationError();
     }
 
@@ -26,7 +26,7 @@ class VisitDate {
   }
 
   getVisitDate() {
-    return Number(this.#visitDate);
+    return this.#visitDate;
   }
 }
 

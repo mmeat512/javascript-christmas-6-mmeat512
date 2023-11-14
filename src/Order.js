@@ -12,8 +12,8 @@ class Order {
     this.#order = order;
   }
 
-  isOverMinOrderAmount(minOrderAmount) {
-    return this.getTotalPrice() >= minOrderAmount;
+  isNotOverMinOrderAmount(minOrderAmount) {
+    return this.getTotalPrice() < minOrderAmount;
   }
 
   getTotalPrice() {
@@ -50,7 +50,7 @@ class Order {
       const [menu, number] = menuNumber.split(SEPARATOR_DASH);
 
       return {
-        menu: menu,
+        menu,
         number: Number(number),
       };
     });
@@ -90,7 +90,7 @@ class Order {
     return orderMenus.every((orderMenu) => {
       const { number } = orderMenu;
 
-      return !isNaN(number) && number >= MIN_ORDER_NUMBER;
+      return !Number.isNaN(number) && number >= MIN_ORDER_NUMBER;
     });
   }
 
@@ -98,7 +98,7 @@ class Order {
     return orderMenus.every((orderMenu) => {
       const { menu } = orderMenu;
       const { beverage } = MENU;
-      const beverages = Object.keys(beverage).map((beverage) => KOREAN_MENU[beverage]);
+      const beverages = Object.keys(beverage).map((beverageMenu) => KOREAN_MENU[beverageMenu]);
 
       return beverages.includes(menu);
     });
@@ -113,8 +113,9 @@ class Order {
   }
 
   #isOverMaxNumber(orderMenus) {
+    const initialNumber = 0;
     const numbers = orderMenus.map((orderMenu) => orderMenu.number);
-    const totalNumbers = numbers.reduce((acc, number) => acc + number, 0);
+    const totalNumbers = numbers.reduce((acc, number) => acc + number, initialNumber);
 
     return totalNumbers > MAX_ORDER_NUMBER;
   }

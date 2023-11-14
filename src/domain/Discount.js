@@ -4,7 +4,7 @@ import {
   YEAR_AMOUNT,
   NO_DISCOUNT,
   DISCOUNT_TYPE,
-} from '../constants/discount.js';
+} from '../constants/discount';
 import Menu from './Menu';
 
 class Discount {
@@ -24,15 +24,16 @@ class Discount {
 
   getTypeAmout(order, type) {
     const menuInstance = new Menu();
+    const initialNumber = 0;
 
     const menuNumber = order.reduce((acc, menu) => {
       const menuType = menuInstance.getMenuType(menu.name);
       if (menuType === type) return acc + menu.number;
 
       return acc;
-    }, 0);
+    }, initialNumber);
 
-    if (menuNumber !== NO_DISCOUNT) return menuNumber * YEAR_AMOUNT;
+    if (menuNumber !== initialNumber) return menuNumber * YEAR_AMOUNT;
 
     return NO_DISCOUNT;
   }

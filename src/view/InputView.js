@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
-import { ERROR_MESSAGE, INPUT_MESSAGE } from '../constants/message.js';
-import ValidationError from '../error/ValidationError.js';
+import { ERROR_MESSAGE, INPUT_MESSAGE } from '../constants/message';
+import ValidationError from '../error/ValidationError';
 
 const validator = {
   validate(input) {
