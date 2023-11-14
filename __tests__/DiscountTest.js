@@ -55,14 +55,18 @@ describe('할인 테스트', () => {
     expect(result).toBe(DISCOUNT_AMOUNT);
   });
 
-  test('크리스마스에 다가올수록 1,000원을 시작으로 100원씩 증가한 금액을 할인받는다.', () => {
+  test('특정 날에 다가올수록 1,000원을 시작으로 100원씩 증가한 금액을 할인받는다.', () => {
     // given
     const DATE = 23;
     const DISCOUNT_AMOUNT = 3200;
+    const CHRISTMAS_DAY = {
+      startDate: 1,
+      endDate: 25,
+    };
 
     // when
     const discount = new Discount(DATE);
-    const result = discount.getChristmasDDayAmount();
+    const result = discount.getDDayAmount(CHRISTMAS_DAY);
 
     // then
     expect(result).toBe(DISCOUNT_AMOUNT);

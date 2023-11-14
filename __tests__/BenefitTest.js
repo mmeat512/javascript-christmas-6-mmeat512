@@ -10,12 +10,12 @@ describe('혜택 테스트', () => {
     ];
     const DISCOUNT_DETAILS = [
       {
-        name: '평일 할인',
-        amount: 4046,
-      },
-      {
         name: '크리스마스 디데이 할인',
         amount: 1500,
+      },
+      {
+        name: '평일 할인',
+        amount: 4046,
       },
     ];
 
