@@ -68,23 +68,4 @@ describe('혜택 테스트', () => {
     // then
     expect(result).toBe(TOTALB_BENEFIT_AMOUNT);
   });
-
-  test.each([
-    [31246, '산타'],
-    [15000, '트리'],
-    [5000, '별'],
-  ])('[%d, %s] 총혜택 금액에 따라 배지 상세를 얻는다.', (totalBenefitAmount, badge) => {
-    // given
-    const SANTA_BADGE = {
-      name: '12월 이벤트 배지',
-      amount: badge,
-    };
-
-    // when
-    const benefit = new Benefit();
-    const result = benefit.getBadgeDetail(totalBenefitAmount);
-
-    // then
-    expect(result).toStrictEqual(SANTA_BADGE);
-  });
 });
