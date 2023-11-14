@@ -17,7 +17,7 @@ class EventPlanner {
     const totalPrice = this.#order.getTotalPrice();
 
     OutputView.printMenu(orders);
-    OutputView.printTotalAmountBeforeDiscount(totalPrice);
+    OutputView.printBeforePrice(totalPrice);
 
     if (this.#visitDate.isWithinDateRange(eventRagne)) {
       if (this.#order.isNotOverMinOrderAmount(minOrderAmount)) this.noEventBenefit(totalPrice);
@@ -30,7 +30,7 @@ class EventPlanner {
     OutputView.printGiftMenu();
     OutputView.pritnBenefitDetails();
     OutputView.printTotalBenefitAmount();
-    OutputView.printTotalAmountAfterDiscount(totalPrice);
+    OutputView.printAfterPrice(totalPrice);
     OutputView.printEventBadge();
   }
 
@@ -46,7 +46,7 @@ class EventPlanner {
     OutputView.printGiftMenu(giftDetails);
     OutputView.pritnBenefitDetails(totalBenefitDetails);
     OutputView.printTotalBenefitAmount(totalBenefitAmount);
-    OutputView.printTotalAmountAfterDiscount(totalPrice - totalDiscountAmount);
+    OutputView.printAfterPrice(totalPrice - totalDiscountAmount);
     OutputView.printEventBadge(Badge.getBadge(totalBenefitAmount));
   }
 }
