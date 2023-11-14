@@ -13,3 +13,12 @@ export const isWeekend = (day) => {
 export const getDay = (date) => {
   return new Date(`${THIS_YEAR}-${THIS_MONTH}-${date}`).getDay();
 };
+export const strFormat = (str, ...args) => {
+  return [...args].reduce((pattern, value) => pattern.replace(/%s/, value), str);
+};
+export const isEmpty = (val) => {
+  return val === undefined || val === null;
+};
+export const isNotEmpty = (val) => {
+  return !isEmpty(val);
+};

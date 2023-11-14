@@ -4,7 +4,24 @@ export const INPUT_MESSAGE = Object.freeze({
     '주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)\n',
 });
 
-export const OUTPUT_MESSAGE = Object.freeze({});
+export const OUTPUT_MESSAGE = Object.freeze({
+  greeting: '안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.',
+  previewGuide: '12월 %s일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!',
+  menuTitle: '<주문 메뉴>',
+  beforePriceTitle: '<할인 전 총주문 금액>',
+  giftTitle: '<증정 메뉴>',
+  benefitTitle: '<혜택 내역>',
+  totalBenefitAmountTitle: '<총혜택 금액>',
+  afterPiceTitle: '<할인 후 예상 결제 금액>',
+  eventBadgeTitle: '<12월 이벤트 배지>',
+  menu: '%s %s개',
+  price: '%s원',
+  champagne: '샴페인 1개',
+  benefit: '%s: -%s원',
+  totalBenefitAmunt: '-%s원',
+  noDiscount: '0원',
+  none: '없음',
+});
 
 const ERROR_PREFIX = '[ERROR]';
 export const ERROR_MESSAGE = Object.freeze({

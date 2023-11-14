@@ -1,78 +1,69 @@
 import { Console } from '@woowacourse/mission-utils';
-import { numberFormatWon } from '../utils/utils';
+import { numberFormatWon, strFormat } from '../utils/utils';
 import { NO_DISCOUNT } from '../constants/discount';
 import { KOREAN_MENU } from '../constants/menu';
+import { OUTPUT_MESSAGE } from '../constants/message';
 
 const OutputView = {
   printGreeting() {
-    Console.print('안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.');
+    Console.print(OUTPUT_MESSAGE.greeting);
   },
 
   printPreviewGuide(date) {
-    Console.print(`12월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!`);
+    Console.print(strFormat(OUTPUT_MESSAGE.previewGuide, date));
   },
 
   printMenu(orders) {
-    Console.print('<주문 메뉴>');
+    Console.print(OUTPUT_MESSAGE.menuTitle);
     orders.forEach(({ name, number }) => {
-      Console.print(`${KOREAN_MENU[name]} ${number}개`);
+      Console.print(strFormat(OUTPUT_MESSAGE.menu, KOREAN_MENU[name], number));
     });
   },
 
-  printTotalAmountBeforeDiscount(totalAmountBeforeDiscount) {
-    Console.print('<할인 전 총주문 금액>');
-    Console.print(`${numberFormatWon(totalAmountBeforeDiscount)}원`);
+  printBeforePrice(totalBeforePrice) {
+    Console.print(OUTPUT_MESSAGE.beforePriceTitle);
+    Console.print(strFormat(OUTPUT_MESSAGE.price, numberFormatWon(totalBeforePrice)));
   },
 
   printGiftMenu(giftDetails) {
-    Console.print('<증정 메뉴>');
+    Console.print(OUTPUT_MESSAGE.giftTitle);
 
-    if (giftDetails && giftDetails.length > 0) {
-      Console.print('샴페인 1개');
-    } else {
-      Console.print('없음');
-    }
+    if (giftDetails && giftDetails.length > 0) Console.print(OUTPUT_MESSAGE.champagne);
+    else Console.print(OUTPUT_MESSAGE.none);
   },
 
   pritnBenefitDetails(benefitDetails) {
-    Console.print('<혜택 내역>');
+    Console.print(OUTPUT_MESSAGE.benefitTitle);
 
     if (benefitDetails && benefitDetails.length > 0) {
       benefitDetails.forEach(({ name, amount }) =>
-        Console.print(`${name}: -${numberFormatWon(amount)}원`),
+        Console.print(strFormat(OUTPUT_MESSAGE.benefit, name, numberFormatWon(amount))),
       );
-    } else {
-      Console.print('없음');
-    }
+    } else Console.print(OUTPUT_MESSAGE.none);
   },
 
   printTotalBenefitAmount(totalBenefitAmount) {
-    Console.print('<총혜택 금액>');
+    Console.print(OUTPUT_MESSAGE.totalBenefitAmountTitle);
 
     if (totalBenefitAmount > NO_DISCOUNT) {
-      Console.print(`-${numberFormatWon(totalBenefitAmount)}원`);
-    } else {
-      Console.print(`${NO_DISCOUNT}원`);
-    }
+      Console.print(
+        strFormat(OUTPUT_MESSAGE.totalBenefitAmunt, numberFormatWon(totalBenefitAmount)),
+      );
+    } else Console.print(OUTPUT_MESSAGE.noDiscount);
   },
 
-  printTotalAmountAfterDiscount(printTotalAmountAfterDiscount) {
-    Console.print('<할인 후 예상 결제 금액>');
+  printAfterPrice(printAfterPrice) {
+    Console.print(OUTPUT_MESSAGE.afterPiceTitle);
 
-    if (printTotalAmountAfterDiscount) {
-      Console.print(`${numberFormatWon(printTotalAmountAfterDiscount)}원`);
-    }
+    if (printAfterPrice)
+      Console.print(strFormat(OUTPUT_MESSAGE.price, numberFormatWon(printAfterPrice)));
   },
 
   printEventBadge(badge) {
-    const { name, amount } = badge;
-    Console.print(`<${name}>`);
+    Console.print(OUTPUT_MESSAGE.eventBadgeTitle);
 
-    if (amount) {
-      Console.print(amount);
-    } else {
-      Console.print('없음');
-    }
+    if (badge) Console.print(badge);
+    else Console.print(OUTPUT_MESSAGE.none);
   },
 
   printError(error) {
