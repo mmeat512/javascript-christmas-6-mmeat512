@@ -1,12 +1,9 @@
-import { BENEFIT_NAME } from '../constants/benefit';
-import { WEEKEND, WEEK_DAY } from '../constants/date';
 import {
   D_DAY_AMOUNT,
   SPECIAL_AMOUNT,
   YEAR_AMOUNT,
   NO_DISCOUNT,
   DISCOUNT_TYPE,
-  CHRISTMAS_DAY,
 } from '../constants/discount.js';
 import Menu from './Menu';
 
@@ -17,24 +14,12 @@ class Discount {
     this.#date = date;
   }
 
-  getEverydayAmount(order) {
-    const day = new Date(`${2023}-${12}-${this.#date}`).getDay();
+  getWeekDayAmount(order) {
+    return this.getTypeAmout(order, DISCOUNT_TYPE.dessert);
+  }
 
-    if (WEEK_DAY.includes(day)) {
-      return {
-        name: BENEFIT_NAME.weekday,
-        amount: this.getTypeAmout(order, DISCOUNT_TYPE.dessert),
-      };
-    }
-
-    if (WEEKEND.includes(day)) {
-      return {
-        name: BENEFIT_NAME.weekend,
-        amount: this.getTypeAmout(order, DISCOUNT_TYPE.main),
-      };
-    }
-
-    return NO_DISCOUNT;
+  getWeekendAmount(order) {
+    return this.getTypeAmout(order, DISCOUNT_TYPE.main);
   }
 
   getTypeAmout(order, type) {
@@ -56,10 +41,6 @@ class Discount {
     if (dates.includes(this.#date)) return SPECIAL_AMOUNT;
 
     return NO_DISCOUNT;
-  }
-
-  getChristmasDDayAmount() {
-    return this.getDDayAmount(CHRISTMAS_DAY);
   }
 
   getDDayAmount(dateRange) {

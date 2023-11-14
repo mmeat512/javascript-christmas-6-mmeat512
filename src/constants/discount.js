@@ -1,4 +1,5 @@
-const THIS_YEAR = 2023;
+import { THIS_YEAR } from './date';
+
 export const NO_DISCOUNT = 0;
 export const YEAR_AMOUNT = THIS_YEAR;
 export const SPECIAL_AMOUNT = 1000;
